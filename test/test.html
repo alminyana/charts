@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>testing d3.js</title>
+  <script src="../d3/d3.v3.js"></script>
+</head>
+<body>
+  <div id="michart"></div>
+  <script>
+    var width = 600,
+        height = 400;
+    var dataset = [4, 6, 3, 12, 25,10,14,21,5,9,13];
+
+    var chart = d3.select('body')
+                      .append('svg')
+                      .attr('width', width)
+                      .attr('height', height)
+
+
+
+    chart.selectAll('circle')
+                .data(dataset)
+                .enter()
+                .append('circle')
+                .attr('cy', 30)
+                .attr('cx', function(d, i){
+                  return 10+(i*50);
+                })
+                .attr('r', function(d){
+                  return d;
+                })
+                .attr('fill', 'grey')
+                .on('mouseover', function(){
+                  d3.select(this)
+                      .transition()
+                      .attr('fill', 'red')
+                      .attr('cursor', 'pointer')
+                })
+                .on('mouseout', function(){
+                  d3.select(this)
+                      .transition()
+                      .attr('fill', 'grey')
+                })
+
+
+    chart.selectAll('text')
+                .data(dataset)
+                .enter()
+                .append('text')
+                .text(function(d){
+                  return d;
+                })
+                .attr('x', function(d, i){
+                  return 10+(i*50);
+                })
+                .attr('y',function(d){
+                  return  75;
+                })
+                .attr('text-anchor', 'middle')
+                .attr('font-family', 'verdana')
+
+
+
+  </script>
+  <script src="testing.js"></script>
+</body>
+</html>

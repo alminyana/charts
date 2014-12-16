@@ -36,7 +36,11 @@ var pie = d3.layout.pie()
       })
 
 var arc = d3.svg.arc()
-      .outerRadius(radius);
+      .innerRadius(100)
+      .outerRadius(radius)
+
+
+
 
 var tooltip = d3.select('body').append('div')
       .style({
