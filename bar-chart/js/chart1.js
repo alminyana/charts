@@ -20,6 +20,7 @@ var svg = d3.select('#chart1')
 var xScale = d3.scale.ordinal()
               .domain(d3.range(datos.length))
               .rangeRoundBands([0, w], 0.05);
+//escala x inversa para ver chart orden descendiente
 var xScaleInv = d3.scale.ordinal()
               .domain(d3.range(datos.length))
               .rangeRoundBands([w, 0], 0.05);
@@ -34,35 +35,55 @@ var xScaleInv = d3.scale.ordinal()
       .attr('x', function(d,i){
         return i * (w / datos.length);
       })
-      .attr('y', function(d) {
-        return h - d*5;
-      })
+      .attr('height', h)
+      .attr('y', h)
       .attr('width', w / datos.length - 2)
-      .attr('height', function (d){
-        return d*10;
-      })
       .attr('fill', function(d) {
         return 'rgb(0,'+(d*10)+',0)';
       });
       //.attr('fill', 'teal');
+
+    //animacion columnas al cargar pagina
+    svg.selectAll('rect')
+          .transition()
+          .duration(1000)
+          .attr('y', function(d) {
+            return h - d*5;
+          })
+          .attr('height', function (d){
+            return d*10;
+          })
 
     //labels
     svg.selectAll('text')
       .data(datos)
       .enter()
       .append('text')
-      .text(function(d){
-        return d;
-      })
+      .text('')
       .attr('x', function(d, i){
         return i * (w / datos.length) + (w / datos.length -1 ) /2;
       })
       .attr('y', function(d) {
-        return h-d*5+15;
+        return h;
       })
       .attr('fill', 'white')
       .attr('font-size', 11)
       .attr('text-anchor', 'middle');
+
+    //animacion labels al cargar pagina
+    svg.selectAll('text')
+          .transition()
+          .duration(1000)
+          .attr('y', function(d) {
+            return h-d*5+15;
+          })
+          .delay(300)
+          .text(function(d){
+            return d;
+          })
+
+
+
 
 
     //boton ordenar ascendente
