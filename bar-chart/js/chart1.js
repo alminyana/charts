@@ -5,6 +5,7 @@ var h = 250;
 var datos = [5, 10, 13, 19, 21, 25, 22, 18, 15, 13, 11,
             12, 15, 20, 18, 17, 16, 18, 23, 25,21,8,11,15,5,23];
 
+//datos ordenados ascendente o descendentemente
 // datos.sort(function compareNumbers(a,b){
 //   return a-b;
 // });
@@ -15,14 +16,16 @@ var svg = d3.select('#chart1')
                 .attr('width', w)
                 .attr('height', h)
 
-      //Scales eje x
-      var xScale = d3.scale.ordinal()
-                    .domain(d3.range(datos.length))
-                    .rangeRoundBands([0, w], 0.05);
+//Scales eje x
+var xScale = d3.scale.ordinal()
+              .domain(d3.range(datos.length))
+              .rangeRoundBands([0, w], 0.05);
+var xScaleInv = d3.scale.ordinal()
+              .domain(d3.range(datos.length))
+              .rangeRoundBands([w, 0], 0.05);
 
 
-
-      //genear barres i adaptar amples de barra a l'amplada del svg
+    //genear barres i adaptar amples de barra a l'amplada del svg
     svg.selectAll('rect')
       .data(datos)
       .enter()
@@ -42,26 +45,86 @@ var svg = d3.select('#chart1')
         return 'rgb(0,'+(d*10)+',0)';
       });
       //.attr('fill', 'teal');
-//labels
-svg.selectAll('text')
-  .data(datos)
-  .enter()
-  .append('text')
-  .text(function(d){
-    return d;
-  })
-  .attr('x', function(d, i){
-    return i * (w / datos.length) + (w / datos.length -1 ) /2;
-  })
-  .attr('y', function(d) {
-    return h-d*5+15;
-  })
-  .attr('fill', 'white')
-  .attr('font-size', 11)
-  .attr('text-anchor', 'middle');
 
+    //labels
+    svg.selectAll('text')
+      .data(datos)
+      .enter()
+      .append('text')
+      .text(function(d){
+        return d;
+      })
+      .attr('x', function(d, i){
+        return i * (w / datos.length) + (w / datos.length -1 ) /2;
+      })
+      .attr('y', function(d) {
+        return h-d*5+15;
+      })
+      .attr('fill', 'white')
+      .attr('font-size', 11)
+      .attr('text-anchor', 'middle');
+
+
+    //boton ordenar ascendente
+    d3.select('#dos')
+        .on('click', function(){
+          ordenaBarras();
+        });
+    d3.select('#tres')
+        .on('click', function(){
+          ordenaBarrasDesc();
+        })
+
+    var ordenaBarrasDesc = function(texto) {
+      svg.selectAll('rect')
+           .sort(function(a,b){
+             return d3.ascending(b,a);
+           })
+           .transition()
+           .duration(1000)
+           .attr('x', function(d,i){
+             return xScale(i);
+           });
+       svg.selectAll('text')
+           .sort(function(a,b){
+             return d3.ascending(a,b);
+           })
+           .transition()
+           .duration(1000)
+           .attr('x', function(d,i){
+             return 10+xScaleInv(i);
+           })
+
+           .attr('text-anchor', 'middle');
+    }
+
+
+     var ordenaBarras = function(texto) {
+       svg.selectAll('rect')
+            .sort(function(a,b){
+              return d3.ascending(a,b);
+            })
+            .transition()
+            .duration(1000)
+            .attr('x', function(d,i){
+              return xScale(i);
+            });
+        svg.selectAll('text')
+            .sort(function(a,b){
+              return d3.ascending(a,b);
+            })
+            .transition()
+            .duration(1000)
+            .attr('x', function(d,i){
+              return 10+xScale(i);
+            })
+
+            .attr('text-anchor', 'middle');
+     }
+
+    //boton generar datos aleatorios.
     d3.select("#uno")
-        .on("click", function() {
+        .on("click", function () {
           //svg.selectAll('text').remove();
           //New values for dataset
 

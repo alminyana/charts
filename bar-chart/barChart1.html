@@ -11,7 +11,9 @@
     <div class="page-header">
       <h2 class="text-danger">D3.js / BarChart with random data and transition</h2>
     </div>
-    <button class="btn-primary btn-lg" id="uno">Datos aleatorios</button><br/>
+    <button class="btn-primary btn-lg" id="uno">Datos aleatorios</button><button id="dos" class="btn-success btn-lg">Ordenar ascend.</button>
+    <button class="btn-warning btn-lg" id="tres">Ordenar descend.</button>
+    <br/>
     <h4>Click one bar to sort the info</h4>
     <div id="chart1"></div>
   </div>
@@ -24,6 +26,9 @@
     }
     rect:hover {
       fill: orange;
+    }
+    button {
+      margin: .5em;
     }
   </style>
   <script src="js/chart1.js"></script>
