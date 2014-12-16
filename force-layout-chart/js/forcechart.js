@@ -1,12 +1,11 @@
 var paleta = {
+  "white": "#fff",
   "lightgray": "#819090",
   "gray": "#708284",
   "mediumgray": "#536870",
   "darkgray": "#475b62",
-
   "darkblue": "#0a2933",
   "derkerblue": "#042029",
-
   "paleryellow": "#fcf4dc",
   "paleyellow": "#eae3cb",
   "yellow": "#a57706",
@@ -66,7 +65,7 @@ for (var i=0; i<nodes.length; i++) {
 var tooltip = d3.select('body').append('div')
       .style('position', 'absolute')
       .style('padding', '10px')
-      .style('background', 'white')
+      .style('background', paleta.white)
       .style('opacity', '0')
       .style('border-radius', '48%');
 
@@ -85,6 +84,7 @@ var force = d3.layout.force()
             .gravity(0.2)
             .charge(-1000)
             .size([w,h])
+            
 //lineas
 var link = chart.selectAll('line')
             .data(links).enter().append('line')
