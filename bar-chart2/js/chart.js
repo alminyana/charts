@@ -31,8 +31,8 @@ var bardata = [];
           left: 40
       }
       //medidas del chart y las barras y el offset
-      var height = 300 - margin.top - margin.bottom,
-          width = 600 - margin.left - margin.right,
+      var height = 500 - margin.top - margin.bottom,
+          width = 900 - margin.left - margin.right,
           barWidth = 50,
           barOffset = 5;
       var tempColor;
@@ -72,9 +72,9 @@ var bardata = [];
             .selectAll('rect').data(bardata)
             .enter().append('rect')
                 //.style('fill', colores)
-                 .style('fill', function (d, i){ //crear degradado de izq a derecha
-                   return colores2(i);
-                 })
+                  .style('fill', function (d, i){ //crear degradado de izq a derecha
+                    return colores2(i);
+                  })
                 .attr('width', xScale.rangeBand())
                 .attr('x', function(d, i){
                   return xScale(i);
