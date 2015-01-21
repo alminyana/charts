@@ -1,5 +1,6 @@
 # charts
 d3.js charts examples
+Gráficas implementadas con la librería d3.js
 
 ejemplo 1 carpeta bar-chart
 Gráfica de barras ordenable con resultados aleatorios.
